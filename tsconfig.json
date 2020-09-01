@@ -1,0 +1,11 @@
+{
+    "include": ["src/**/*"],
+    "exclude": ["node_modules"],
+    "compilerOptions": {
+        // Ensure that Babel can safely transpile files in the TypeScript project
+        "isolatedModules": true,
+        "noImplicitAny": true,
+        "removeComments": true,
+        "outDir": "build"
+    }
+}

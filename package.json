@@ -1,0 +1,36 @@
+{
+  "name": "astroindia-core",
+  "version": "1.0.0",
+  "description": "A calculator based on Indian Astrological methods",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/astrokerala/astrokerala-core.git"
+  },
+  "keywords": [
+    "astrology",
+    "grahanila",
+    "horoscope",
+    "lahiri"
+  ],
+  "author": "Dennis Mathew Philip",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/astrokerala/astrokerala-core/issues"
+  },
+  "homepage": "https://github.com/astrokerala/astrokerala-core#readme",
+  "dependencies": {
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.0.1",
+    "@typescript-eslint/parser": "^4.0.1",
+    "eslint": "^7.8.0",
+    "typescript": "^4.0.2"
+  }
+}
