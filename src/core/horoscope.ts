@@ -2,7 +2,6 @@ import swisseph from 'swisseph';
 
 import {
     LORD,
-    RASHI,
     RASHIS,
     RashiType,
     LordType,
@@ -45,7 +44,10 @@ interface HoroscopeInput {
     longitude: number;
 }
 
-type House = Map<number, Set<string>>;
+interface House {
+    rashi: RashiType,
+    lords: LordType[]
+};
 
 export default class Horoscope {
     /* Eg: 2020 */
@@ -72,7 +74,9 @@ export default class Horoscope {
     latitude: number;
     longitude: number;
 
-    house: House;
+    house: House[];
+
+    ascendantRashi: RashiType;
 
     constructor(inputParams: HoroscopeInput) {
         this.year = inputParams.year,
@@ -85,10 +89,60 @@ export default class Horoscope {
         this.latitude = inputParams.latitude;
         this.longitude = inputParams.longitude;
 
-        this.house = new Map();
+        this.house = this.generateHousesFromAscendant();
 
         // The last 2 parameters are ignored
         swisseph.swe_set_sid_mode(AYANAMSHA_LAHIRI, 0, 0);
+    }
+
+    getAllHouses(): House[] {
+        const lords = Object.keys(LORD) as LordType[];
+
+        lords.map((lord) => {
+            const { rashi } = this.getRashiOfLord(lord);
+
+            this.house[0] = {
+                rashi,
+                lords: [LORD.ASCENDANT]
+            };
+        });
+
+        return
+    }
+
+    getHouse(index: number): House {
+        if(index < 1 || index > 12) {
+            throw new Error('House number can only be between 1 and 12');
+        }
+
+        return this.house[index - 1];
+    }
+
+    generateHousesFromAscendant(): House[] {
+        const houses: House[] = [];
+
+        const ascendantRashi = this.getRashiOfLord(LORD.ASCENDANT).rashi;
+
+        // Offset of house 1 rashi from Aries
+        const offset = RASHIS.indexOf(ascendantRashi);
+
+        for (let i = 0; i < 12; i++) {
+            const rashiIndex = (i + offset) % 12;
+            houses[i] = {
+                rashi: RASHIS[rashiIndex],
+                lords: []
+            }
+        }
+
+        const lords = Object.keys(LORD) as LordType[];
+
+        lords.forEach((lord) => {
+            const { rashi } = this.getRashiOfLord(lord);
+            const lordsCurrentHouse = houses.find(((house) => house.rashi === rashi ));
+            lordsCurrentHouse.lords.push(lord);
+        });
+
+        return houses;
     }
 
     getRashiOfLord(lord: LordType): PlanetPosition | AscendantPosition {

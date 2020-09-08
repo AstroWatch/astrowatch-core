@@ -15,6 +15,12 @@ const TEST_INPUT = {
 
 describe('Horoscope', () => {
     describe('calculateLordPosition for 22 July 1986,20:00,29.34/47.91', () => {
+        it('should set house 1 as capricorn', () => {
+            const horoscope = new Horoscope(TEST_INPUT);
+
+            expect(horoscope.house[0].rashi).toBe(RASHI.CAPRICORN);
+        });
+
         it('should return Moon in Capricorn', () => {
             const horoscope = new Horoscope(TEST_INPUT);
 
@@ -93,6 +99,54 @@ describe('Horoscope', () => {
             const { rashi } = horoscope.getRashiOfLord(LORD.ASCENDANT);
 
             expect(rashi).toBe(RASHI.CAPRICORN);
+        });
+    });
+
+    describe('generateHousesFromAscendant', () => {
+        it('should return rashis starting with Capricorn', () => {
+            const horoscope = new Horoscope(TEST_INPUT);
+
+            const rashis = horoscope.house.map(({rashi}) => rashi);
+
+            expect(rashis).toEqual([
+                'CAPRICORN',
+                'AQUARIUS',
+                'PISCES',
+                'ARIES',
+                'TAURUS',
+                'GEMINI',
+                'CANCER',
+                'LEO',
+                'VIRGO',
+                'LIBRA',
+                'SCORPIO',
+                'SAGITTARIUS'
+            ]);
+        });
+
+        it('should return positions of the lords', () => {
+            const horoscope = new Horoscope(TEST_INPUT);
+
+            const lords = horoscope.house.map(({ lords }) => lords);
+
+            expect(lords).toEqual([
+                // House 1
+                [LORD.ASCENDANT, LORD.MOON],
+
+                [LORD.JUPITER],
+                [],
+                [LORD.RAHU],
+                [],
+                [],
+                [LORD.SUN, LORD.MERCURY],
+                [LORD.VENUS],
+                [],
+                [LORD.KETU],
+                [LORD.SATURN],
+
+                // House 12
+                [LORD.MARS]
+            ]);
         });
     });
 });
