@@ -149,4 +149,17 @@ describe('Horoscope', () => {
             ]);
         });
     });
+
+    describe('getHouse', () => {
+        it('should return first house rashi and lords', () => {
+            const horoscope = new Horoscope(TEST_INPUT);
+
+            const firstHouse = horoscope.getHouse(1);
+
+            expect(firstHouse).toEqual({
+                rashi: RASHI.CAPRICORN,
+                lords: [LORD.ASCENDANT, LORD.MOON]
+            });
+        });
+    });
 });
