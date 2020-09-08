@@ -30,7 +30,7 @@ interface APIResponse {
  * @param {string} city City
  * @returns {GeoCode} Place Name and Lat/Long
  */
-export default async function geocoder(location: Location): Promise<GeoCode | null> {
+export default async function geocoder(location: Location): Promise<GeoCode[] | null> {
     const {country, state, city} = location;
     if (!country || !state || !city) {
         throw new Error(`Please provide the country, state and city ${JSON.stringify(location)}`);
@@ -38,30 +38,24 @@ export default async function geocoder(location: Location): Promise<GeoCode | nu
 
     const params = new URLSearchParams();
     params.append('format', 'json');
-    params.append('limit', '1');
+    params.append('limit', '10');
     params.append('country', country);
     params.append('state', state);
     params.append('city', city);
 
     const url = `${API_OPEN_STREET_MAP}?${params.toString()}`;
 
-    let geocode = null;
+    let geocode: GeoCode[] = [];
 
     try {
         const response = await fetch(url);
         const result: APIResponse[] = await response.json();
 
-        const firstResult = result?.[0];
-
-        if (firstResult) {
-            geocode = {
-                lat: firstResult.lat,
-                lon: firstResult.lon,
-                placeName: firstResult.display_name
-            };
-        } else {
-            console.error('No results found for', location);
-        }
+        geocode = result.map(({lat, lon, display_name: placeName}) => ({
+            lat,
+            lon,
+            placeName
+        }));
     } catch(err) {
         console.error(err);
 

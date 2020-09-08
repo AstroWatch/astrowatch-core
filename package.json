@@ -26,14 +26,15 @@
   },
   "homepage": "https://github.com/astrokerala/astrokerala-core#readme",
   "dependencies": {
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "swisseph": "^0.5.14"
   },
   "devDependencies": {
     "@babel/core": "^7.11.5",
     "@babel/plugin-transform-modules-commonjs": "^7.10.4",
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-typescript": "^7.10.4",
-    "@types/jest": "^26.0.12",
+    "@types/jest": "^26.0.13",
     "@types/node-fetch": "^2.5.7",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
