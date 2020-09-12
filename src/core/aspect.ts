@@ -2,9 +2,16 @@ import Horoscope from './horoscope';
 import {
     EXALTED_LORD,
     DEBILITATED_LORD,
+    LORD_FULL_ASPECT,
     LordType,
+    LORD,
+    HouseNumberType,
     RASHI_OWN_LORD
 } from './constants';
+
+type LordHouseAspect = {
+    [key in HouseNumberType]: LordType[];
+}
 
 export default class Aspect {
     horoscope: Horoscope;
@@ -59,6 +66,41 @@ export default class Aspect {
         }
 
         return this.lordInOwnHouse;
+    }
+
+    findLordAspectOnHouse(): LordHouseAspect {
+        const lordHouseAspect = {} as LordHouseAspect;
+
+        // Initialize
+        for (let houseNumber = 1; houseNumber <= 12; houseNumber++) {
+            lordHouseAspect[houseNumber as HouseNumberType] = [];
+        }
+
+        for (let houseNumber = 1; houseNumber <= 12; houseNumber++) {
+            const { lords } = this.horoscope.getHouse(houseNumber);
+
+            lords.forEach((lord) => {
+                const aspectedHouses = LORD_FULL_ASPECT[lord];
+
+                if (Array.isArray(aspectedHouses) && aspectedHouses.length) {
+                    aspectedHouses
+                        // Adjust the aspect from ascendant
+                        .map((aspectedHouse) => {
+                            const adjustedHouse = aspectedHouse + houseNumber - 1;
+
+                            return adjustedHouse > 12
+                                ? adjustedHouse % 12
+                                : adjustedHouse;
+                        })
+                        // Add to result
+                        .forEach((aspectedHouse: HouseNumberType) => {
+                            lordHouseAspect[aspectedHouse].push(lord);
+                        });
+                }
+            });
+        }
+
+        return lordHouseAspect;
     }
 
 }

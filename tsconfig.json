@@ -2,8 +2,13 @@
     "include": [
         "src/**/*"
     ],
-    "exclude": ["node_modules"],
+    "exclude": [
+        "node_modules",
+        "src/core/__tests__/**"
+    ],
     "compilerOptions": {
+        "target": "ESNext",
+        "module": "ESNext",
         // Ensure that Babel can safely transpile files in the TypeScript project
         "isolatedModules": true,
         "noImplicitAny": true,

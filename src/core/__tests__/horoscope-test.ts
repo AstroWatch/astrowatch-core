@@ -13,6 +13,18 @@ const TEST_INPUT = {
     longitude: 47.9134571
 };
 
+const TEST_INPUT_LIBRA_ASCENDANT = {
+    year: 1985,
+    month: 5,
+    day: 16,
+    hour: 16,
+    minute: 50,
+    second: 0,
+    timezoneOffset: 5.5,
+    latitude: 9.9825665,
+    longitude: 76.2990313
+};
+
 describe('Horoscope', () => {
     describe('calculateLordPosition for 22 July 1986,20:00,29.34/47.91', () => {
         it('should set house 1 as capricorn', () => {
@@ -99,6 +111,14 @@ describe('Horoscope', () => {
             const { rashi } = horoscope.getRashiOfLord(LORD.ASCENDANT);
 
             expect(rashi).toBe(RASHI.CAPRICORN);
+        });
+    });
+
+    describe('calculateLordPosition for Libra Ascendant', () => {
+        it('should set house 1 as libra', () => {
+            const horoscope = new Horoscope(TEST_INPUT_LIBRA_ASCENDANT);
+
+            expect(horoscope.house[0].rashi).toBe(RASHI.LIBRA);
         });
     });
 

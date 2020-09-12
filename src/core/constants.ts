@@ -4,6 +4,9 @@ export type RashiType = 'ARIES' | 'TAURUS' |'GEMINI'
     | 'CANCER' | 'LEO' | 'VIRGO' |
     'LIBRA' | 'SCORPIO' | 'SAGITTARIUS' |
     'CAPRICORN' | 'AQUARIUS' | 'PISCES';
+export type HouseNumberType = 1 | 2 | 3 | 4 | 5 | 6
+    | 7 | 8 | 9 | 10 | 11 | 12;
+
 
 export const LORD = {
     ASCENDANT: 'ASCENDANT',
@@ -110,5 +113,22 @@ export const RASHI_OWN_LORD = {
     [RASHI.AQUARIUS]: LORD.SATURN,
     [RASHI.PISCES]: LORD.JUPITER
 } as {
-        [key in RashiType]: LordType
-    };
+    [key in RashiType]: LordType
+};
+
+export const LORD_FULL_ASPECT = {
+    // Every lord aspects 7th house from itself
+    [LORD.SUN]: [7],
+    [LORD.MOON]: [7],
+    [LORD.RAHU]: [7],
+    [LORD.MERCURY]: [7],
+    [LORD.KETU]: [7],
+    [LORD.VENUS]: [7],
+
+    // Special aspects
+    [LORD.SATURN]: [3, 7, 10],
+    [LORD.JUPITER]: [5, 7, 9],
+    [LORD.MARS]: [4, 7, 8]
+} as {
+    [key in LordType]: HouseNumberType[]
+};
