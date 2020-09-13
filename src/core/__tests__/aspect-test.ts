@@ -77,7 +77,7 @@ describe('Aspect', () => {
             const aspect = new Aspect(horoscope);
 
             const lordHouseAspect = aspect.findLordAspectOnHouse();
-            expect(lordHouseAspect[5]).toEqual([]);
+            expect(lordHouseAspect[5]).toEqual([LORD.KETU]);
         });
 
         it('should return aspects for 10th house', () => {
@@ -86,7 +86,7 @@ describe('Aspect', () => {
             const aspect = new Aspect(horoscope);
 
             const lordHouseAspect = aspect.findLordAspectOnHouse();
-            expect(lordHouseAspect[10]).toEqual([LORD.JUPITER, LORD.SATURN]);
+            expect(lordHouseAspect[10]).toEqual([LORD.JUPITER, LORD.SATURN, LORD.KETU]);
         });
     });
 });

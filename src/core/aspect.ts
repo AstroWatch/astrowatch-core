@@ -4,7 +4,6 @@ import {
     DEBILITATED_LORD,
     LORD_FULL_ASPECT,
     LordType,
-    LORD,
     HouseNumberType,
     RASHI_OWN_LORD
 } from './constants';

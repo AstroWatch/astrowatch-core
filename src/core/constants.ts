@@ -120,15 +120,15 @@ export const LORD_FULL_ASPECT = {
     // Every lord aspects 7th house from itself
     [LORD.SUN]: [7],
     [LORD.MOON]: [7],
-    [LORD.RAHU]: [7],
     [LORD.MERCURY]: [7],
-    [LORD.KETU]: [7],
     [LORD.VENUS]: [7],
 
     // Special aspects
     [LORD.SATURN]: [3, 7, 10],
     [LORD.JUPITER]: [5, 7, 9],
-    [LORD.MARS]: [4, 7, 8]
+    [LORD.MARS]: [4, 7, 8],
+    [LORD.RAHU]: [5, 7, 9],
+    [LORD.KETU]: [5, 7, 9]
 } as {
     [key in LordType]: HouseNumberType[]
 };
