@@ -6,6 +6,7 @@ export type RashiType = 'ARIES' | 'TAURUS' |'GEMINI'
     'CAPRICORN' | 'AQUARIUS' | 'PISCES';
 export type HouseNumberType = 1 | 2 | 3 | 4 | 5 | 6
     | 7 | 8 | 9 | 10 | 11 | 12;
+export type SquareHouseType = 1 | 4 | 7 | 10;
 
 
 export const LORD = {
@@ -71,13 +72,13 @@ export const PLANET_BODY_NUMBER = {
 export const EXALTED_LORD = {
     [LORD.SUN]: RASHI.ARIES,
     [LORD.MOON]: RASHI.TAURUS,
-    [LORD.RAHU]: RASHI.TAURUS,
-    [LORD.JUPITER]: RASHI.CANCER,
-    [LORD.MERCURY]: RASHI.VIRGO,
-    [LORD.SATURN]: RASHI.LIBRA,
-    [LORD.KETU]: RASHI.SCORPIO,
     [LORD.MARS]: RASHI.CAPRICORN,
-    [LORD.VENUS]: RASHI.PISCES
+    [LORD.MERCURY]: RASHI.VIRGO,
+    [LORD.JUPITER]: RASHI.CANCER,
+    [LORD.VENUS]: RASHI.PISCES,
+    [LORD.SATURN]: RASHI.LIBRA,
+    [LORD.RAHU]: RASHI.TAURUS,
+    [LORD.KETU]: RASHI.SCORPIO
 } as {
     [key in LordType]: RashiType
 };
@@ -85,15 +86,40 @@ export const EXALTED_LORD = {
 export const DEBILITATED_LORD = {
     [LORD.SUN]: RASHI.LIBRA,
     [LORD.MOON]: RASHI.SCORPIO,
-    [LORD.RAHU]: RASHI.SCORPIO,
-    [LORD.JUPITER]: RASHI.CAPRICORN,
-    [LORD.MERCURY]: RASHI.PISCES,
-    [LORD.SATURN]: RASHI.ARIES,
-    [LORD.KETU]: RASHI.TAURUS,
     [LORD.MARS]: RASHI.CANCER,
-    [LORD.VENUS]: RASHI.VIRGO
+    [LORD.MERCURY]: RASHI.PISCES,
+    [LORD.JUPITER]: RASHI.CAPRICORN,
+    [LORD.VENUS]: RASHI.VIRGO,
+    [LORD.SATURN]: RASHI.ARIES,
+    [LORD.RAHU]: RASHI.SCORPIO,
+    [LORD.KETU]: RASHI.TAURUS
 } as {
     [key in LordType]: RashiType
+};
+
+// DIG BALA
+export const HOUSE_DIRECTION_STRENGTH = {
+    1: {
+        strong: [LORD.MERCURY, LORD.JUPITER],
+        weak: [LORD.SATURN]
+    },
+    4: {
+        strong: [LORD.MOON, LORD.VENUS],
+        weak: [LORD.SUN, LORD.MARS]
+    },
+    7: {
+        strong: [LORD.SATURN],
+        weak: [LORD.JUPITER, LORD.MERCURY]
+    },
+    10: {
+        strong: [LORD.SUN, LORD.MARS],
+        weak: [LORD.MOON, LORD.VENUS]
+    }
+} as {
+    [key in SquareHouseType]: {
+        strong: LordType[],
+        weak: LordType[]
+    }
 };
 
 export const RASHI_OWN_LORD = {
@@ -132,3 +158,71 @@ export const LORD_FULL_ASPECT = {
 } as {
     [key in LordType]: HouseNumberType[]
 };
+
+export const PLANET_PERMANENT_RELATIONSHIP = {
+    [LORD.SUN]: {
+        friend: new Set([LORD.MOON, LORD.MARS, LORD.JUPITER]),
+        neutral: new Set([LORD.MERCURY]),
+        enemy: new Set([LORD.VENUS, LORD.SATURN, LORD.RAHU, LORD.KETU])
+    },
+    [LORD.MOON]: {
+        friend: new Set([LORD.SUN, LORD.MERCURY]),
+        neutral: new Set([LORD.MARS, LORD.JUPITER, LORD.VENUS, LORD.SATURN]),
+        enemy: new Set([LORD.RAHU, LORD.KETU])
+    },
+    [LORD.MARS]: {
+        friend: new Set([LORD.SUN, LORD.MOON, LORD.JUPITER, LORD.KETU]),
+        neutral: new Set([LORD.VENUS, LORD.SATURN]),
+        enemy: new Set([LORD.MERCURY, LORD.RAHU])
+    },
+    [LORD.MERCURY]: {
+        friend: new Set([LORD.SUN, LORD.VENUS]),
+        neutral: new Set([LORD.MARS, LORD.JUPITER, LORD.SATURN, LORD.RAHU, LORD.KETU]),
+        enemy: new Set([LORD.MOON])
+    },
+    [LORD.JUPITER]: {
+        friend: new Set([LORD.SUN, LORD.MOON, LORD.MARS, LORD.RAHU]),
+        neutral: new Set([LORD.SATURN, LORD.KETU]),
+        enemy: new Set([LORD.MERCURY])
+    },
+    [LORD.VENUS]: {
+        friend: new Set([LORD.MERCURY, LORD.SATURN, LORD.RAHU, LORD.KETU]),
+        neutral: new Set([LORD.MARS, LORD.JUPITER]),
+        enemy: new Set([LORD.SUN, LORD.MOON])
+    },
+    [LORD.SATURN]: {
+        friend: new Set([LORD.MERCURY, LORD.VENUS, LORD.RAHU]),
+        neutral: new Set([LORD.JUPITER]),
+        enemy: new Set([LORD.SUN, LORD.MOON, LORD.MARS, LORD.KETU])
+    },
+    [LORD.RAHU]: {
+        friend: new Set([LORD.JUPITER, LORD.VENUS, LORD.SATURN]),
+        neutral: new Set([LORD.MERCURY]),
+        enemy: new Set([LORD.SUN, LORD.MOON, LORD.MARS, LORD.KETU])
+    },
+    [LORD.KETU]: {
+        friend: new Set([LORD.MARS, LORD.VENUS, LORD.SATURN]),
+        neutral: new Set([LORD.MERCURY, LORD.JUPITER]),
+        enemy: new Set([LORD.SUN, LORD.MOON, LORD.SATURN, LORD.RAHU])
+    }
+} as {
+    [key in LordType]: {
+        friend: Set<LordType>,
+        neutral: Set<LordType>,
+        enemy: Set<LordType>
+    }
+};
+
+export const PLANET_TEMPORARY_RELATIONSHIP = {
+    friend: new Set<HouseNumberType>([2, 3, 4, 10, 11, 12]),
+    enemy: new Set<HouseNumberType>([1, 5, 6, 7, 8, 9])
+};
+
+// Kendra sthanas
+export const SQUARE_HOUSES = [1, 4, 7, 10];
+
+// Trikona sthanas
+export const TRINE_HOUSES = [1, 5, 9];
+
+export const NATURAL_BENEFIC_LORDS = [LORD.VENUS, LORD.JUPITER];
+export const NATURAL_MALEFIC_LORDS = [LORD.SUN, LORD.MARS, LORD.SATURN, LORD.RAHU, LORD.KETU];

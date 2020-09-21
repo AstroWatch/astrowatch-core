@@ -12,6 +12,19 @@ type LordHouseAspect = {
     [key in HouseNumberType]: LordType[];
 }
 
+/**
+ * RELATIVE AMOUNT OF POTENTIAL STRENGTH
+ *
+ * An exalted planet                            : 87.5% to 100%
+ * A planet with trinal strength                : 75.0% to 87.5%
+ * A planet in its own positive constellation   : 62.5% to 75.0%
+ * A planet in its own negative constellation   : 50.0% to 62.5%
+ * A planet in the constellation of a friend    : 37.5% to 50.0%
+ * A planet in the constellation of a neutral   : 25.0%, to 37.5%
+ * A planet in the constellation of an enemy    : 12.5% to 25.0%
+ * A debilitated planet                         : 0% to 12.5%
+ */
+
 export default class Aspect {
     horoscope: Horoscope;
     exalted: LordType[];
