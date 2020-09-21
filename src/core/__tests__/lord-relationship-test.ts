@@ -33,6 +33,10 @@ describe('LordRelationship', () => {
                     lord: LORD.SATURN
                 },
                 {
+                    houseNumber: 6,
+                    lord: LORD.KETU
+                },
+                {
                     houseNumber: 12,
                     lord: LORD.VENUS
                 },
