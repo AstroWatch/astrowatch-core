@@ -213,6 +213,7 @@ export const PLANET_PERMANENT_RELATIONSHIP = {
     }
 };
 
+// Positions from the lord
 export const PLANET_TEMPORARY_RELATIONSHIP = {
     friend: new Set<HouseNumberType>([2, 3, 4, 10, 11, 12]),
     enemy: new Set<HouseNumberType>([1, 5, 6, 7, 8, 9])

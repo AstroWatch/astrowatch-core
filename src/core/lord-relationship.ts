@@ -2,7 +2,6 @@ import Horoscope from './horoscope';
 import {
     RASHI_OWN_LORD,
     PLANET_PERMANENT_RELATIONSHIP,
-    PLANET_TEMPORARY_RELATIONSHIP,
     HOUSE_DIRECTION_STRENGTH,
     LordType,
     HouseNumberType,
@@ -15,6 +14,8 @@ type TemporaryRelationship = {
         enemy: Set<LordType>;
     };
 };
+
+type RelationshipScore = -2 | -1 | 0 | 1 | 2;
 
 interface LordHouse {
     lord: LordType,
@@ -36,6 +37,39 @@ export default class LordRelationship {
 
     constructor(horoscope: Horoscope) {
         this.horoscope = horoscope;
+    }
+
+    /**
+     * Returns a score from -2 to +2 indicating planetary friendship
+     *
+     * @param {LordType} baseLord Set the base for calculating relationship
+     * @param {LordType} lordForComparison Compare the relationship of the base lord with this lord
+     * @returns
+     * -2 for "extreme enemity"
+     * -1 for "enemity"
+     *  0 for "neutral relationship"
+     *  1 for "friendship"
+     *  2 for "extreme friendship"
+     */
+    findNetRelationScore(baseLord: LordType, lordForComparison: LordType): RelationshipScore {
+        let score = 0;
+        const temporary = this.findTemporaryRelation();
+
+        // Find score based on permanent relation
+        if (PLANET_PERMANENT_RELATIONSHIP[baseLord].friend.has(lordForComparison)) {
+            score++;
+        } else if (PLANET_PERMANENT_RELATIONSHIP[baseLord].enemy.has(lordForComparison)) {
+            score--;
+        }
+
+        // Find score based on temporary relation
+        if (temporary[baseLord].friend.has(lordForComparison)) {
+            score++;
+        } else if (temporary[baseLord].enemy.has(lordForComparison)) {
+            score--;
+        }
+
+        return score as RelationshipScore;
     }
 
     findDirectionalStrength(): DirectionalStrength {

@@ -193,4 +193,48 @@ describe('LordRelationship', () => {
             });
         });
     });
+
+    describe('findNetRelationScore', () => {
+        it('should establish a neutral relation between Venus and Rahu', () => {
+            const horoscope = new Horoscope(TEST_INPUT_SUN_IN_LEO);
+
+            const relationship = new LordRelationship(horoscope);
+            const score = relationship.findNetRelationScore(LORD.VENUS, LORD.RAHU);
+
+            // Though VENUS has RAHU as permanent friends,
+            // due to temporary enemity they are neutral
+            expect(score).toEqual(0);
+        });
+
+        it('should establish a neutral relation between Rahu and Venus', () => {
+            const horoscope = new Horoscope(TEST_INPUT_SUN_IN_LEO);
+
+            const relationship = new LordRelationship(horoscope);
+            const score = relationship.findNetRelationScore(LORD.RAHU, LORD.VENUS);
+
+            // Though VENUS has RAHU are permanent friends,
+            // due to temporary enemity they are neutral
+            expect(score).toEqual(0);
+        });
+
+        it('should establish Mercury as an extreme enemy for Mars', () => {
+            const horoscope = new Horoscope(TEST_INPUT_SUN_IN_LEO);
+
+            const relationship = new LordRelationship(horoscope);
+            const score = relationship.findNetRelationScore(LORD.MARS, LORD.MERCURY);
+
+            // MERCURY is a permanent and temporary enemy for MARS
+            expect(score).toEqual(-2);
+        });
+
+        it('should establish Mars as an enemy for Mercury', () => {
+            const horoscope = new Horoscope(TEST_INPUT_SUN_IN_LEO);
+
+            const relationship = new LordRelationship(horoscope);
+            const score = relationship.findNetRelationScore(LORD.MERCURY, LORD.MARS);
+
+            // MARS is only a temporary enemy for MERCURY
+            expect(score).toEqual(-1);
+        });
+    });
 });
