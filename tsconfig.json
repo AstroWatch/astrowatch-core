@@ -13,7 +13,8 @@
         "isolatedModules": true,
         "noImplicitAny": true,
         "removeComments": true,
-        "outDir": "build",
+        "declaration": true,
+        "outDir": "dist",
         "baseUrl": "types",
         "typeRoots": ["types"],
         "types": [

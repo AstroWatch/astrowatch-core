@@ -2,7 +2,7 @@
   "name": "astrowatch-core",
   "version": "1.0.0",
   "description": "A calculator based on Indian Astrological methods",
-  "main": "index.js",
+  "main": "dist/index.js",
   "type": "module",
   "scripts": {
     "test": "jest",
