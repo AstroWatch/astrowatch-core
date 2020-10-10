@@ -8,6 +8,9 @@ export type HouseNumberType = 1 | 2 | 3 | 4 | 5 | 6
     | 7 | 8 | 9 | 10 | 11 | 12;
 export type SquareHouseType = 1 | 4 | 7 | 10;
 
+type FunctionalRelation = {
+    [key in RashiType]: Set<LordType>
+};
 
 export const LORD = {
     ASCENDANT: 'ASCENDANT',
@@ -227,3 +230,47 @@ export const TRINE_HOUSES = [1, 5, 9];
 
 export const NATURAL_BENEFIC_LORDS = [LORD.VENUS, LORD.JUPITER];
 export const NATURAL_MALEFIC_LORDS = [LORD.SUN, LORD.MARS, LORD.SATURN, LORD.RAHU, LORD.KETU];
+
+// Source: Vedic Astrology: An Integrated Approach - PVR Narasimha Rao
+export const ASC_FUNCTIONAL_BENEFIC_LORDS = {
+    [RASHI.ARIES]: new Set([LORD.SUN, LORD.MARS, LORD.JUPITER]),
+    [RASHI.TAURUS]: new Set([LORD.SUN, LORD.MERCURY, LORD.SATURN]),
+    [RASHI.GEMINI]: new Set([LORD.VENUS]),
+    [RASHI.CANCER]: new Set([LORD.MOON, LORD.MARS, LORD.JUPITER]),
+    [RASHI.LEO]: new Set([LORD.SUN, LORD.MARS, LORD.JUPITER]),
+    [RASHI.VIRGO]: new Set([LORD.MERCURY, LORD.VENUS]),
+    [RASHI.LIBRA]: new Set([LORD.MERCURY, LORD.VENUS, LORD.SATURN]),
+    [RASHI.SCORPIO]: new Set([LORD.MOON, LORD.JUPITER]),
+    [RASHI.SAGITTARIUS]: new Set([LORD.SUN, LORD.MARS]),
+    [RASHI.CAPRICORN]: new Set([LORD.VENUS, LORD.MERCURY, LORD.SATURN]),
+    [RASHI.AQUARIUS]: new Set([LORD.VENUS, LORD.SATURN]),
+    [RASHI.PISCES]: new Set([LORD.MOON, LORD.MARS])
+} as FunctionalRelation;
+export const ASC_FUNCTIONAL_NEUTRAL_LORDS = {
+    [RASHI.ARIES]: new Set(),
+    [RASHI.TAURUS]: new Set([LORD.MARS]),
+    [RASHI.GEMINI]: new Set([LORD.MOON, LORD.MERCURY, LORD.SATURN]),
+    [RASHI.CANCER]: new Set([LORD.SUN, LORD.SATURN]),
+    [RASHI.LEO]: new Set([LORD.MOON]),
+    [RASHI.VIRGO]: new Set([LORD.SUN, LORD.SATURN]),
+    [RASHI.LIBRA]: new Set([]),
+    [RASHI.SCORPIO]: new Set([LORD.SUN, LORD.MARS]),
+    [RASHI.SAGITTARIUS]: new Set([LORD.MOON, LORD.MERCURY, LORD.JUPITER]),
+    [RASHI.CAPRICORN]: new Set([LORD.SUN]),
+    [RASHI.AQUARIUS]: new Set([LORD.SUN, LORD.MERCURY]),
+    [RASHI.PISCES]: new Set([LORD.JUPITER])
+} as FunctionalRelation;
+export const ASC_FUNCTIONAL_MALEFIC_LORDS = {
+    [RASHI.ARIES]: new Set([LORD.MERCURY, LORD.VENUS, LORD.SATURN]),
+    [RASHI.TAURUS]: new Set([LORD.MOON, LORD.JUPITER, LORD.VENUS]),
+    [RASHI.GEMINI]: new Set([LORD.SUN, LORD.MARS, LORD.JUPITER]),
+    [RASHI.CANCER]: new Set([LORD.MERCURY, LORD.VENUS]),
+    [RASHI.LEO]: new Set([LORD.MERCURY, LORD.VENUS, LORD.SATURN]),
+    [RASHI.VIRGO]: new Set([LORD.MOON, LORD.MARS, LORD.JUPITER]),
+    [RASHI.LIBRA]: new Set([LORD.SUN, LORD.MARS, LORD.JUPITER]),
+    [RASHI.SCORPIO]: new Set([LORD.MERCURY, LORD.VENUS, LORD.SATURN]),
+    [RASHI.SAGITTARIUS]: new Set([LORD.VENUS, LORD.SATURN]),
+    [RASHI.CAPRICORN]: new Set([LORD.MARS, LORD.JUPITER]),
+    [RASHI.AQUARIUS]: new Set([LORD.MOON, LORD.MARS, LORD.JUPITER]),
+    [RASHI.PISCES]: new Set([LORD.SUN, LORD.MERCURY, LORD.VENUS, LORD.SATURN])
+} as FunctionalRelation;

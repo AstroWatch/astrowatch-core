@@ -76,8 +76,6 @@ export default class Horoscope {
 
     house: House[];
 
-    ascendantRashi: RashiType;
-
     constructor(inputParams: HoroscopeInput) {
         this.year = inputParams.year,
         this.month = inputParams.month,

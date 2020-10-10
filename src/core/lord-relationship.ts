@@ -5,8 +5,18 @@ import {
     HOUSE_DIRECTION_STRENGTH,
     LordType,
     HouseNumberType,
-    SquareHouseType, LORD
+    SquareHouseType,
+    LORD,
+    ASC_FUNCTIONAL_BENEFIC_LORDS,
+    ASC_FUNCTIONAL_NEUTRAL_LORDS,
+    ASC_FUNCTIONAL_MALEFIC_LORDS
 } from './constants';
+
+interface FunctionalRelation {
+    benefic: Set<LordType>;
+    neutral: Set<LordType>;
+    malefic: Set<LordType>;
+}
 
 type TemporaryRelationship = {
     [key in LordType]?: {
@@ -93,6 +103,16 @@ export default class LordRelationship {
             });
 
         return result;
+    }
+
+    findFunctionalRelation(): FunctionalRelation {
+        const ascendantRashi = this.horoscope.getRashiOfLord(LORD.ASCENDANT).rashi;
+
+        return {
+            benefic: ASC_FUNCTIONAL_BENEFIC_LORDS[ascendantRashi],
+            neutral: ASC_FUNCTIONAL_NEUTRAL_LORDS[ascendantRashi],
+            malefic: ASC_FUNCTIONAL_MALEFIC_LORDS[ascendantRashi]
+        };
     }
 
     findTemporaryRelation(): TemporaryRelationship {

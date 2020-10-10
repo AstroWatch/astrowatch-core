@@ -237,4 +237,17 @@ describe('LordRelationship', () => {
             expect(score).toEqual(-1);
         });
     });
+
+    describe('findFunctionalRelation', () => {
+        const horoscope = new Horoscope(TEST_INPUT_SUN_IN_LEO);
+
+        const relationship = new LordRelationship(horoscope);
+        const functionalRelation = relationship.findFunctionalRelation();
+
+        expect(functionalRelation).toEqual({
+            benefic: new Set([LORD.SUN, LORD.MARS, LORD.JUPITER]),
+            neutral: new Set([LORD.MOON]),
+            malefic: new Set([LORD.MERCURY, LORD.VENUS, LORD.SATURN])
+        });
+    });
 });
